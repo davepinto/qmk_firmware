@@ -37,3 +37,14 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
+#define ORYX_CONFIGURATOR
+#define PLANCK_EZ_USER_LEDS
+
+#ifdef TAPPING_TOGGLE
+#undef TAPPING_TOGGLE
+#endif
+#define TAPPING_TOGGLE 3
+
+#define TAPPING_TERM 300
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
