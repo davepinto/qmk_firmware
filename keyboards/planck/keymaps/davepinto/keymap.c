@@ -23,7 +23,6 @@ enum planck_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
-  _NUMPAD,
   _FUNCTION,
   _ADJUST
 };
@@ -89,7 +88,6 @@ const uint32_t PROGMEM unicode_map[] = {
 
 #define LOWER TT(_LOWER)
 #define RAISE TT(_RAISE)
-#define NUMPAD TT(_NUMPAD)
 #define FUNCT TT(_FUNCTION)
 #define KC_ESCT MT(MOD_LCTL, KC_ESC)
 #define KC_ENCT MT(MOD_RCTL, KC_ENT) 
@@ -102,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,   KC_QUOT,
     KC_ESCT,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,   KC_ENCT,
     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
-      FUNCT, KC_LALT, KC_LGUI,  NUMPAD,   LOWER,  KC_SPC,  KC_SPC,   RAISE,   FUNCT, KC_RGUI, KC_RALT,   KC_RCTL
+      FUNCT, KC_LCTL, KC_LALT,  KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_LEFT, KC_DOWN,   KC_UP,   KC_RGHT
 ),
 
 /* Qwerty */
@@ -110,31 +108,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_QUOT,
     KC_ESCT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,   KC_ENCT,
     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
-    KC_LCTL,  NUMPAD, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_RGUI, KC_RALT,   FUNCT,   KC_BSPC
-),
-
-/* LOWER */
-[_LOWER] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______,   KC_LT, KC_LCBR, KC_RCBR,   KC_GT, KC_BSPC,
-    _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, _______, 
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_LT,   KC_GT, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      FUNCT, KC_LCTL, KC_LALT,  KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_LEFT, KC_DOWN,   KC_UP,   KC_RGHT
 ),
 
 /* RAISE */
 [_RAISE] = LAYOUT_planck_grid(
-    _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, _______, _______, _______, _______, _______, KC_BSPC,
-    _______, KC_CIRC, KC_AMPR,  KC_GRV, KC_MINS, KC_BSLS, _______, _______, _______, _______, _______, _______, 
-    _______,  KC_DEL, KC_ASTR, KC_TILD, KC_UNDS, KC_PIPE, _______, _______, _______,   KC_LT,   KC_GT, _______,
+     KC_DLR, KC_LBRC, KC_RBRC, KC_SLSH, KC_ASTR,   KC_AT, _______, _______, KC_LCBR, KC_RCBR, _______, _______,
+    KC_BSPC, KC_LPRN, KC_RPRN, KC_MINS, KC_PLUS,  KC_GRV, _______, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, _______, 
+    _______, KC_CIRC, KC_HASH, KC_PERC, KC_UNDS, KC_TILD, _______, _______,   KC_LT,   KC_GT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* Numpad */
-[_NUMPAD] = LAYOUT_planck_grid(
-    _______, KC_EXLM, KC_AMPR, KC_PIPE, KC_CIRC, _______,    KC_7,    KC_8,    KC_9, KC_PERC, KC_BSLS, KC_BSPC, 
-    _______, _______,    KC_A,    KC_B,    KC_C, _______,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_ASTR,  KC_ENT,
-    _______, _______,    KC_D,    KC_E,    KC_F,    KC_X,    KC_1,    KC_2,    KC_3, KC_MINS, KC_SLSH,  KC_EQL, 
-    _______, _______, _______, _______, _______, _______,    KC_0,    KC_0,  KC_DOT,  KC_DOT, _______, _______
+/* LOWER */
+[_LOWER] = LAYOUT_planck_grid(
+     KC_DLR, KC_LBRC, KC_RBRC, KC_SLSH, KC_ASTR,    KC_A,    KC_F,    KC_7,    KC_8,    KC_9, KC_EXLM, KC_BSPC,
+     KC_SPC, KC_LPRN, KC_RPRN, KC_MINS, KC_PLUS,    KC_B,    KC_E,    KC_4,    KC_5,    KC_6, KC_AMPR,  KC_ENT, 
+    _______,   KC_LT,   KC_GT, KC_PERC,    KC_X,    KC_C,    KC_D,    KC_1,    KC_2,    KC_3, KC_PIPE,  KC_EQL,
+    _______, _______, _______, _______, _______, _______,    KC_0,    KC_0,  KC_DOT, KC_CIRC, KC_TILD, KC_BSLS
 ),
 
 /* Function */
