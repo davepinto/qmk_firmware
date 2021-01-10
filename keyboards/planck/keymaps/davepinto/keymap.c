@@ -23,6 +23,7 @@ enum planck_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
+  _NUMPAD,
   _FUNCTION,
   _ADJUST
 };
@@ -32,8 +33,63 @@ enum planck_keycodes {
   QWERTY
 };
 
+enum unicode_names {
+  MULT,
+  DOT,
+  SLSH,
+  DIV,
+  PLUS,
+  MINS,
+  PLMN,
+  NOT,
+  INF,
+  TILD,
+  NTLD,
+  EQL,
+  NEQL,
+  AEQL,
+  LTEQ,
+  GTEQ,
+  LAND,
+  LOR,
+  INTS,
+  UNIN,
+  LFTA,
+  UPA,
+  RGTA,
+  DWNA,
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+  [MULT]    = 0x00D7,
+  [DOT]     = 0x22C5,
+  [SLSH]    = 0x2215,
+  [DIV]     = 0x00F7,
+  [PLUS]    = 0x002B,
+  [MINS]    = 0x2212,
+  [PLMN]    = 0x00B1,
+  [NOT]     = 0x00AC,
+  [INF]     = 0x221E,
+  [TILD]    = 0x223C,
+  [NTLD]    = 0x2241,
+  [EQL]     = 0x003D,
+  [NEQL]    = 0x2260,
+  [AEQL]    = 0x2248,
+  [LTEQ]    = 0x2264,
+  [GTEQ]    = 0x2265,
+  [LAND]    = 0x2227,
+  [LOR]     = 0x2228,
+  [INTS]    = 0x2229,
+  [UNIN]    = 0x222A,
+  [LFTA]    = 0x2190,
+  [UPA]     = 0x2191,
+  [RGTA]    = 0x2192,
+  [DWNA]    = 0x2193
+};
+
 #define LOWER TT(_LOWER)
 #define RAISE TT(_RAISE)
+#define NUMPAD TT(_NUMPAD)
 #define FUNCT TT(_FUNCTION)
 #define KC_ESCT MT(MOD_LCTL, KC_ESC)
 #define KC_ENCT MT(MOD_RCTL, KC_ENT) 
@@ -43,42 +99,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Workman */
 [_COLMKDH] = LAYOUT_planck_grid(
-     KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,   KC_BSPC,
-    KC_ESCT,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,   KC_QUOT,
-    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_SFTENT,
-      FUNCT, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_RGUI, KC_RALT, KC_RCTL,     FUNCT
+     KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,   KC_QUOT,
+    KC_ESCT,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,   KC_ENCT,
+    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
+      FUNCT, KC_LALT, KC_LGUI,  NUMPAD,   LOWER,  KC_SPC,  KC_SPC,   RAISE,   FUNCT, KC_RGUI, KC_RALT,   KC_RCTL
 ),
 
 /* Qwerty */
 [_QWERTY] = LAYOUT_planck_grid(
-     KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_BSPC,
-    KC_ESCT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,   KC_QUOT,
-    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_SFTENT,
-      FUNCT, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_RGUI, KC_RALT, KC_RCTL,     FUNCT
+     KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_QUOT,
+    KC_ESCT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,   KC_ENCT,
+    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_RSFT,
+    KC_LCTL,  NUMPAD, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_RGUI, KC_RALT,   FUNCT,   KC_BSPC
 ),
 
-/* Lower */
+/* LOWER */
 [_LOWER] = LAYOUT_planck_grid(
-    _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
-    _______, _______, _______, _______, _______, _______, KC_PAST,    KC_4,    KC_5,    KC_6, KC_PPLS, KC_PENT,
-    _______, _______, _______, _______, _______, _______, KC_PSLS,    KC_1,    KC_2,    KC_3, KC_PMNS, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______,    KC_0,  KC_DOT, KC_PEQL, _______
+    _______, _______, _______, _______, _______, _______, _______,   KC_LT, KC_LCBR, KC_RCBR,   KC_GT, KC_BSPC,
+    _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, _______, 
+    _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_LT,   KC_GT, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* Raise */
+/* RAISE */
 [_RAISE] = LAYOUT_planck_grid(
-    _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-    _______,  KC_GRV, KC_BSLS,  KC_EQL, KC_MINS, _______, _______, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, _______,
-    _______, KC_TILD, KC_PIPE, KC_PLUS, KC_UNDS, _______, _______, KC_LPRN, KC_RPRN,   KC_LT,   KC_GT, _______, 
+    _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, _______, _______, _______, _______, _______, KC_BSPC,
+    _______, KC_CIRC, KC_AMPR,  KC_GRV, KC_MINS, KC_BSLS, _______, _______, _______, _______, _______, _______, 
+    _______,  KC_DEL, KC_ASTR, KC_TILD, KC_UNDS, KC_PIPE, _______, _______, _______,   KC_LT,   KC_GT, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* Numpad */
+[_NUMPAD] = LAYOUT_planck_grid(
+    _______, KC_EXLM, KC_AMPR, KC_PIPE, KC_CIRC, _______,    KC_7,    KC_8,    KC_9, KC_PERC, KC_BSLS, KC_BSPC, 
+    _______, _______,    KC_A,    KC_B,    KC_C, _______,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_ASTR,  KC_ENT,
+    _______, _______,    KC_D,    KC_E,    KC_F,    KC_X,    KC_1,    KC_2,    KC_3, KC_MINS, KC_SLSH,  KC_EQL, 
+    _______, _______, _______, _______, _______, _______,    KC_0,    KC_0,  KC_DOT,  KC_DOT, _______, _______
 ),
 
 /* Function */
 [_FUNCTION] = LAYOUT_planck_grid(
-    KC_NLCK, KC_HOME,   KC_UP,  KC_END, KC_PGUP, KC_PAUS, _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_DEL,
-    KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS, KC_MUTE,   KC_F5,   KC_F6,   KC_F7,   KC_F8, KC_MUTE,
-    KC_SLCK, KC_VOLU, KC_MUTE, KC_VOLD, _______, KC_PSCR, _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_VOLU, 
-    _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD
+      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
+    KC_CAPS, KC_MPLY, KC_MPRV, KC_MNXT, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_MUTE, KC_VOLD, KC_VOLD, _______, _______, _______, _______, _______,   KC_UP, _______, _______, 
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______
 ),
 
 /* Adjust (Lower + Raise) */
