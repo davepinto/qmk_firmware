@@ -8,9 +8,10 @@
                                 }
 #endif
 
-/* enable basic MIDI features */
 #define MIDI_BASIC
 
 #define TAPPING_TERM 175
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
+
+#define	ONESHOT_TAP_TOGGLE	3
+#define ONESHOT_TIMEOUT		3000
