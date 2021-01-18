@@ -15,8 +15,7 @@ enum custom_keys {
     PLOVER,
     EXT_PLV,
     LEFTSPC,
-    RGHTSPC,
-    BACKLIT,
+    RGHTSPC
 };
 
 #define LOWER 	TT(_LOWER)
@@ -35,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
     KC_ESCT,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
     CK_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, CK_RSFT,
-      FUNCT, KC_LCTL, KC_LALT, KC_LGUI,    LSPC,  KC_ENT,  KC_ENT,    RSPC, KC_RGUI, KC_RALT, KC_RCTL,   FUNCT
+      FUNCT, KC_LCTL, KC_LALT, KC_LGUI,    LSPC,    LSPC,    RSPC,    RSPC, KC_RGUI, KC_RALT, KC_RCTL,   FUNCT
 ),
 
 /* LOWER */
@@ -57,8 +56,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Function */
 [_FUNCT] = LAYOUT_planck_grid(
-      RESET, KC_PSCR,   KC_UP, KC_SLCK, KC_MNXT,  KC_INS, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,   KC_F4, COLMKDH,
-    BACKLIT, KC_LEFT, KC_DOWN, KC_RGHT, KC_MPLY, KC_HOME,  KC_END,   KC_F5,   KC_F6,   KC_F7,   KC_F8, _______,
+      RESET, KC_PSCR,   KC_UP, KC_SLCK, KC_MNXT,  KC_INS, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,   KC_F4, DF(_COLMKDH),
+    _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_MPLY, KC_HOME,  KC_END,   KC_F5,   KC_F6,   KC_F7,   KC_F8, _______,
     _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_PGUP, KC_PGDN,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  PLOVER, 
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -85,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Adjust (Lower + Raise) */
 [_ADJUST] = LAYOUT_planck_grid(
       RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_COLMKDH),
-    BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, PLOVER,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 )
@@ -113,23 +112,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          writePinLow(E6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          writePinHigh(E6);
-        #endif
-      }
-      return false;
-      break;
     case PLOVER:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -138,7 +120,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         layer_off(_RAISE);
         layer_off(_LOWER);
-        layer_off(_ADJUST);
         layer_on(_PLOVER);
         if (!eeconfig_is_enabled()) {
             eeconfig_init();
