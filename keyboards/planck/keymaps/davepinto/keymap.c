@@ -3,63 +3,72 @@
 
 enum planck_layers {
     _COLMKDH = 0,
+    _QWERTY,
+    _PLOVER,
+    _MUSIC,
     _LOWER,
     _RAISE,
     _FUNCT,
-    _ADJUST,
-    _PLOVER
+    _ADJUST
 };
 
 enum custom_keys {
     COLMKDH = SAFE_RANGE,
+    QWERTY,
     PLOVER,
-    EXT_PLV,
+    MUSIC,
+    FUNCT,
+    ADJUST,
     LEFTSPC,
-    RGHTSPC
+    RGHTSPC,
+    EXITPLV
 };
 
-#define LOWER 	TT(_LOWER)
-#define RAISE 	TT(_RAISE)
-#define FUNCT 	TT(_FUNCT)
-#define KC_ESCT MT(MOD_LCTL, KC_ESC)
-#define LSPC	LT(_LOWER, KC_SPC)
-#define RSPC	LT(_RAISE, KC_ENT)
+#define CK_ESCT MT(MOD_LCTL, KC_ESC)
 #define CK_LSFT	OSM(MOD_LSFT)
 #define CK_RSFT	OSM(MOD_RSFT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak Mod-DH */
-[_COLMKDH] = LAYOUT_planck_grid(
+[_COLMKDH] = LAYOUT_planck_2x2u(
      KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
     KC_ESCT,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
     CK_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, CK_RSFT,
-      FUNCT, KC_LCTL, KC_LALT, KC_LGUI,    LSPC,    LSPC,    RSPC,    RSPC, KC_RGUI, KC_RALT, KC_RCTL,   FUNCT
+     ADJUST, KC_LCTL, KC_LALT, KC_LGUI,       LEFTSPC,          RGHTSPC,     KC_RGUI, KC_RALT, KC_RCTL,   FUNCT
+),
+
+/* QWERTY */
+[_QWERTY] = LAYOUT_planck_2x2u(
+     KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,
+    KC_ESCT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+    CK_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, CK_RSFT,
+     ADJUST, KC_LCTL, KC_LALT, KC_LGUI,       LEFTSPC,          RGHTSPC,     KC_RGUI, KC_RALT, KC_RCTL,   FUNCT
 ),
 
 /* LOWER */
-[_LOWER] = LAYOUT_planck_grid(
+[_LOWER] = LAYOUT_planck_2x2u(
     _______, KC_LBRC, KC_RBRC, KC_AMPR, KC_TILD,    LSFT(KC_C), LSFT(KC_D),    KC_7,    KC_8,    KC_9, KC_ASTR, KC_BSPC,
     _______, KC_LPRN, KC_RPRN, KC_PIPE, KC_CIRC,    LSFT(KC_B), LSFT(KC_E),    KC_4,    KC_5,    KC_6, KC_PLUS,  KC_ENT, 
-    _______,   KC_LT,   KC_GT, KC_EXLM, LSFT(KC_X), LSFT(KC_A), LSFT(KC_F),    KC_1,    KC_2,    KC_3, KC_MINS,  KC_EQL,
-    _______, _______, _______, _______, _______,    _______,       _______,    KC_0,  KC_DOT, KC_COMM, KC_SLSH, KC_PERC
+    _______,   KC_LT,   KC_GT, KC_EXLM,    KC_X,    LSFT(KC_A), LSFT(KC_F),    KC_1,    KC_2,    KC_3, KC_MINS,  KC_EQL,
+    _______, _______, _______, _______,           _______,            KC_0,           KC_DOT, KC_COMM, KC_SLSH, KC_PERC
 ),
 
 /* RAISE */
-[_RAISE] = LAYOUT_planck_grid(
+[_RAISE] = LAYOUT_planck_2x2u(
     KC_TILD,  KC_GRV, KC_ASTR, KC_AMPR, KC_CIRC, KC_PERC, _______, _______, KC_LCBR, KC_RCBR, _______, _______,
-    _______,  KC_DLR, KC_HASH,   KC_AT, KC_EXLM, KC_PLUS, _______, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, KC_ESCT,
+    _______,  KC_DLR, KC_HASH,   KC_AT, KC_EXLM, KC_PLUS, _______, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, _______,
     _______, KC_BSLS, KC_PIPE, KC_UNDS, KC_MINS,  KC_EQL, _______, _______,   KC_LT,   KC_GT, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______,      _______,         _______,      _______, _______, _______, _______
 ),
 
 
 /* Function */
-[_FUNCT] = LAYOUT_planck_grid(
-      RESET, KC_PSCR,   KC_UP, KC_SLCK, KC_MNXT,  KC_INS, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,   KC_F4, DF(_COLMKDH),
+[_FUNCT] = LAYOUT_planck_2x2u(
+      RESET, KC_PSCR,   KC_UP, KC_SLCK, KC_MNXT,  KC_INS, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,   KC_F4, _______,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_MPLY, KC_HOME,  KC_END,   KC_F5,   KC_F6,   KC_F7,   KC_F8, _______,
-    _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_PGUP, KC_PGDN,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  PLOVER, 
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_PGUP, KC_PGDN,   KC_F9,  KC_F10,  KC_F11,  KC_F12, _______, 
+    _______, _______, _______, _______,      _______,         _______,      _______, _______, _______, _______
 ),
 
 /* Plover layer (http://opensteno.org)
@@ -81,11 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  EXT_PLV, XXXXXXX,   STN_A,   STN_O, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   STN_E,   STN_U, STN_RE1, STN_RE2
 ),
 
-/* Adjust (Lower + Raise) */
+/* Adjust */
 [_ADJUST] = LAYOUT_planck_grid(
-      RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_COLMKDH),
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, PLOVER,
+      RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______,   MUSIC, COLMKDH,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, AUDIOTG,  QWERTY,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  PLOVER,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 )
 
